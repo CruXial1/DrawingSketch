@@ -42,6 +42,7 @@ namespace DrawingSketch
             panel1.BorderStyle = BorderStyle.FixedSingle;
 
             g = panel1.CreateGraphics();
+
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
@@ -59,6 +60,8 @@ namespace DrawingSketch
         {
             if(e.Button == MouseButtons.Left)
             {
+                p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
+
                 current = e.Location;
                 g.DrawLine(p, old, current);
                 old = current;
@@ -70,12 +73,15 @@ namespace DrawingSketch
             width = width + 1;
             p = new Pen(c, width);
             textBox2.Text = $"Size: {width}";
+            p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
         private void SizeMinus_Click(object sender, EventArgs e)
         {
             width = width - 1;
             p = new Pen(c, width);
+
+            p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
 
             if (width < 1) width = 1;
 
@@ -92,6 +98,8 @@ namespace DrawingSketch
 
             c = colorDialog1.Color;
             p = new Pen(c, width);
+
+            p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
         private void eraser_Click(object sender, EventArgs e)
@@ -104,6 +112,8 @@ namespace DrawingSketch
             p = new Pen(c, width);
 
             textBox3.Text = $"Current Tool: {currentTool}";
+
+            p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
         private void pen_Click(object sender, EventArgs e)
@@ -114,6 +124,8 @@ namespace DrawingSketch
             p = new Pen(c, width);
 
             textBox3.Text = $"Current Tool: {currentTool}";
+
+            p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
         private void reset_Click(object sender, EventArgs e)
@@ -122,11 +134,20 @@ namespace DrawingSketch
             p = new Pen(c, width);
 
             textBox2.Text = $"Size: {width}";
+
+            p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
         private void clear_Click(object sender, EventArgs e)
         {
-            panel1.Invalidate();
+            var answer = MessageBox.Show("Are you sure you wanna delete your masterpiece?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (answer == DialogResult.No) return;
+            else
+            {
+                panel1.Invalidate();
+                p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
+            }
         }
     }
 }

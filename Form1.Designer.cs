@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.SizePlus = new System.Windows.Forms.Button();
             this.SizeMinus = new System.Windows.Forms.Button();
@@ -146,7 +147,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(808, 451);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
@@ -158,8 +159,9 @@
             this.Controls.Add(this.SizeMinus);
             this.Controls.Add(this.SizePlus);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Crux Paint";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
