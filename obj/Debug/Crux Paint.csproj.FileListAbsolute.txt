@@ -1,10 +1,10 @@
-C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\bin\Debug\DrawingSketch.exe.config
-C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\bin\Debug\DrawingSketch.exe
-C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\bin\Debug\DrawingSketch.pdb
 C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\Crux Paint.csprojAssemblyReference.cache
 C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\DrawingSketch.Form1.resources
-C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\DrawingSketch.Properties.Resources.resources
 C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\Crux Paint.csproj.GenerateResource.cache
 C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\Crux Paint.csproj.CoreCompileInputs.cache
-C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\DrawingSketch.exe
-C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\DrawingSketch.pdb
+C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\bin\Debug\Crux Paint.exe.config
+C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\bin\Debug\Crux Paint.exe
+C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\bin\Debug\Crux Paint.pdb
+C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\CruxPaint.Properties.Resources.resources
+C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\Crux Paint.exe
+C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\Crux Paint.pdb

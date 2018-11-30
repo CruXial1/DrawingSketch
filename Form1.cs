@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DrawingSketch
@@ -19,16 +13,19 @@ namespace DrawingSketch
 
         float width = 5;
         public Color c = new Color();
-        Color savedColor;
+        Color savedColor = Color.Black;
 
         public Point current = new Point();
         public Point old = new Point();
         public Pen p = new Pen(Color.Black, 5);
-        public Graphics g;
+        public static Graphics g;
+
 
         public Form1()
         {
             InitializeComponent();
+
+            Cursor.Current = Cursors.Cross;
 
             c = Color.Black;
             p = new Pen(c, width);
@@ -37,10 +34,10 @@ namespace DrawingSketch
             textBox1.ReadOnly = true;
 
             textBox2.ReadOnly = false;
-            textBox2.Text = $"Size: {width}";
+            textBox2.Text = $"{width}";
 
             textBox3.ReadOnly = true;
-            textBox3.Text = $"Current Tool: {currentTool}";
+            textBox3.Text = $"{currentTool}";
 
             panel1.BorderStyle = BorderStyle.FixedSingle;
 
@@ -75,7 +72,7 @@ namespace DrawingSketch
         {
             width = width + 1;
             p = new Pen(c, width);
-            textBox2.Text = $"Size: {width}";
+            textBox2.Text = $"{width}";
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
@@ -88,7 +85,7 @@ namespace DrawingSketch
 
             if (width < 1) width = 1;
 
-            textBox2.Text = $"Size: {width}";
+            textBox2.Text = $"{width}";
         }
 
         private void changecolor_Click(object sender, EventArgs e)
@@ -113,18 +110,24 @@ namespace DrawingSketch
 
             changecolor.Enabled = false;
 
-            Color color = textBox1.BackColor = Color.White;
+            Color color = textBox1.BackColor = DefaultBackColor;
 
             c = Form1.DefaultBackColor;
             p = new Pen(c, width);
 
-            textBox3.Text = $"Current Tool: {currentTool}";
+            textBox3.Text = $"{currentTool}";
 
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
         private void pen_Click(object sender, EventArgs e)
         {
+            if(savedColor == DefaultBackColor)
+            {
+                MessageBox.Show("Color was set to background color. \nThe color has been set back to default.", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                savedColor = Color.Black;
+            }
+
             changecolor.Enabled = true;
 
             currentTool = "Pen";
@@ -133,7 +136,7 @@ namespace DrawingSketch
             c = savedColor;
             p = new Pen(c, width);
 
-            textBox3.Text = $"Current Tool: {currentTool}";
+            textBox3.Text = $"{currentTool}";
 
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
@@ -143,7 +146,7 @@ namespace DrawingSketch
             width = 5;
             p = new Pen(c, width);
 
-            textBox2.Text = $"Size: {width}";
+            textBox2.Text = $"{width}";
 
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
@@ -168,6 +171,8 @@ namespace DrawingSketch
 
             var contentNumbers = Regex.Matches(Width, @"[a-zA-Z]").Count;
 
+            var letters = contentNumbers.ToString();
+
             string filtered = Regex.Replace(content, @"Size:\s*", "").Trim();
 
             if (!int.TryParse(filtered, out int value))
@@ -179,14 +184,39 @@ namespace DrawingSketch
 
             var output = float.Parse(Width);
 
+            c = savedColor;
+
             width = output;
         }
 
         private void Help_Click(object sender, EventArgs e)
         {
-            string response = "Hello, I see you are new to Crux Paint? Keep reading to get some information about the different features in Crux Paint!\n\nButtons:\n\n1. Size +: Increases the size by 1.\n2. Size -: Decreases the size by 1.\n3. Pen: Selects the pen tool.\n4. Eraser: Selects the eraser tool. \n\n Fields: \n\n1. Size: Shows the current size, you can also change the size with this field.\n2. Current Tool: Displays the selected tool.\n3. Color: Displayes the selected color. \n\n Buttons 2:\n\n1. Reset Size: Resets the size to the default value (5)\n2. Clear: Clears all work on screen.\n3. Change Color: Opens up a dialog for changing colors with the Pen tool.";
+            string response = "Hello, I see you are new to Crux Paint? Keep reading to get some information about the different features in Crux Paint!\n\nButtons:\n\n1. Size +: Increases the size by 1.\n2. Size -: Decreases the size by 1.\n3. Pen: Selects the pen tool.\n4. Eraser: Selects the eraser tool. \n\n Fields: \n\n1. Size: Shows the current size, you can also change the size with this field.\n2. Current Tool: Displays the selected tool.\n3. Color: Displayes the selected color. \n\n Buttons 2:\n\n1. Reset Size: Resets the size to the default value (5)\n2. Clear: Clears all work on screen.\n3. Change Color: Opens up a dialog for changing colors with the Pen tool.\n4. Save Image: Saves you masterpiece to a .jpg file (still W.I.P)";
 
             MessageBox.Show(response, "Informaion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void Save_Click(object sender, EventArgs e)
+        {
+            int picWidth = this.panel1.Width;
+            int picHeight = this.panel1.Height;
+
+            var graphics = Form1.g;
+
+            Bitmap bm = new Bitmap(picWidth, picHeight);
+
+            SaveFileDialog sf = new SaveFileDialog();
+            sf.Filter = "JPEG Image (.jpeg) | *.jpg";
+
+            panel1.DrawToBitmap(bm, new Rectangle(0, 0, picWidth, picHeight));
+
+            sf.ShowDialog();
+
+            graphics.DrawImage(bm, Point.Empty);
+
+            var path = sf.FileName;
+
+                bm.Save(path, ImageFormat.Jpeg);
         }
     }
 }
