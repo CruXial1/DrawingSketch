@@ -11,6 +11,9 @@ namespace DrawingSketch
     {
         string currentTool = "Pen";
 
+        Point lastPoint = Point.Empty;
+        bool isMouseDown = false;
+
         float width = 5;
         public Color c = new Color();
         Color savedColor = Color.Black;
@@ -19,7 +22,6 @@ namespace DrawingSketch
         public Point old = new Point();
         public Pen p = new Pen(Color.Black, 5);
         public static Graphics g;
-
 
         public Form1()
         {
@@ -39,10 +41,6 @@ namespace DrawingSketch
             textBox3.ReadOnly = true;
             textBox3.Text = $"{currentTool}";
 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-
-            g = panel1.CreateGraphics();
-
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
@@ -51,21 +49,44 @@ namespace DrawingSketch
 
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            old = e.Location;
+            lastPoint = e.Location;
+            isMouseDown = true;
         }
 
-        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            if(isMouseDown == true)
             {
-                p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
+                if(lastPoint != null)
+                {
+                    if(pictureBox1.Image == null)
+                    {
+                        Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
-                current = e.Location;
-                g.DrawLine(p, old, current);
-                old = current;
+                        pictureBox1.Image = bmp;
+                    }
+                    using (Graphics g = Graphics.FromImage(pictureBox1.Image))
+                    {
+                        c = savedColor;
+                        textBox1.BackColor = c;
+
+                        g.DrawLine(p, lastPoint, e.Location);
+
+                        p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
+                    }
+                    pictureBox1.Invalidate();
+
+                    lastPoint = e.Location;
+                }
             }
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMouseDown = false;
+            lastPoint = Point.Empty;
         }
 
         private void SizePlus_Click(object sender, EventArgs e)
@@ -158,7 +179,7 @@ namespace DrawingSketch
             if (answer == DialogResult.No) return;
             else
             {
-                panel1.Invalidate();
+                pictureBox1.Invalidate();
                 p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
             }
         }
@@ -198,25 +219,24 @@ namespace DrawingSketch
 
         private void Save_Click(object sender, EventArgs e)
         {
-            int picWidth = this.panel1.Width;
-            int picHeight = this.panel1.Height;
+            int picWidth = pictureBox1.Width;
+            int picHeight = pictureBox1.Height;
 
-            var graphics = Form1.g;
-
-            Bitmap bm = new Bitmap(picWidth, picHeight);
+            Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
             SaveFileDialog sf = new SaveFileDialog();
             sf.Filter = "JPEG Image (.jpeg) | *.jpg";
 
-            panel1.DrawToBitmap(bm, new Rectangle(0, 0, picWidth, picHeight));
+            pictureBox1.DrawToBitmap(bmp, new Rectangle(0, 0, picWidth, picHeight));
 
-            sf.ShowDialog();
-
-            graphics.DrawImage(bm, Point.Empty);
+            if(sf.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
 
             var path = sf.FileName;
 
-                bm.Save(path, ImageFormat.Jpeg);
+            bmp.Save(path, ImageFormat.Jpeg);
         }
     }
 }
