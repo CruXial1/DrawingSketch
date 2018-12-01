@@ -174,12 +174,15 @@ namespace DrawingSketch
 
         private void clear_Click(object sender, EventArgs e)
         {
+            Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+
             var answer = MessageBox.Show("Are you sure you wanna delete your masterpiece?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (answer == DialogResult.No) return;
             else
             {
-                pictureBox1.Invalidate();
+                pictureBox1.Image = null;
+                Invalidate();
                 p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
             }
         }
