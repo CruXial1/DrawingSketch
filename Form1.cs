@@ -15,6 +15,7 @@ namespace DrawingSketch
         bool isMouseDown = false;
 
         float width = 5;
+
         public Color c = new Color();
         Color savedColor = Color.Black;
 
@@ -32,14 +33,19 @@ namespace DrawingSketch
             c = Color.Black;
             p = new Pen(c, width);
 
-            textBox1.BackColor = c;
             textBox1.ReadOnly = true;
+            textBox1.BackColor = c;
 
             textBox2.ReadOnly = false;
             textBox2.Text = $"{width}";
 
             textBox3.ReadOnly = true;
             textBox3.Text = $"{currentTool}";
+
+            AssignWidth.ReadOnly = true;
+            AssignHeight.ReadOnly = true;
+            AssignWidth.Text = $"{pictureBox1.Width}";
+            AssignHeight.Text = $"{pictureBox1.Height}";
 
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
@@ -69,8 +75,11 @@ namespace DrawingSketch
                     }
                     using (Graphics g = Graphics.FromImage(pictureBox1.Image))
                     {
-                        c = savedColor;
-                        textBox1.BackColor = c;
+                        if (currentTool == "Pen")
+                        {
+                            c = savedColor;
+                            textBox1.BackColor = c;
+                        }
 
                         g.DrawLine(p, lastPoint, e.Location);
 
@@ -92,13 +101,18 @@ namespace DrawingSketch
         private void SizePlus_Click(object sender, EventArgs e)
         {
             width = width + 1;
-            p = new Pen(c, width);
             textBox2.Text = $"{width}";
+
+            if (currentTool == "Eraser") c = pictureBox1.BackColor;
+
+            p = new Pen(c, width);
             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round);
         }
 
         private void SizeMinus_Click(object sender, EventArgs e)
         {
+            if (currentTool == "Eraser") c = pictureBox1.BackColor;
+
             width = width - 1;
             p = new Pen(c, width);
 
@@ -174,8 +188,6 @@ namespace DrawingSketch
 
         private void clear_Click(object sender, EventArgs e)
         {
-            Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-
             var answer = MessageBox.Show("Are you sure you wanna delete your masterpiece?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (answer == DialogResult.No) return;
@@ -232,14 +244,21 @@ namespace DrawingSketch
 
             pictureBox1.DrawToBitmap(bmp, new Rectangle(0, 0, picWidth, picHeight));
 
-            if(sf.ShowDialog() == DialogResult.Cancel)
+            if (sf.ShowDialog() == DialogResult.Cancel)
             {
                 return;
             }
 
+            ImageFormat f = ImageFormat.Jpeg;
             var path = sf.FileName;
 
-            bmp.Save(path, ImageFormat.Jpeg);
+            bmp.Save(path, f);
+        }
+
+        private void pictureBox1_SizeChanged(object sender, EventArgs e)
+        {
+            AssignWidth.Text = $"{pictureBox1.Width}";
+            AssignHeight.Text = $"{pictureBox1.Height}";
         }
     }
 }
