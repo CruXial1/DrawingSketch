@@ -259,6 +259,24 @@ namespace DrawingSketch
         {
             AssignWidth.Text = $"{pictureBox1.Width}";
             AssignHeight.Text = $"{pictureBox1.Height}";
+
+            Invalidate();
+        }
+
+        private void openfile_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Open File";
+                ofd.Filter = "JPEG Images (*.jpeg)|*.jpg";
+
+                if(ofd.ShowDialog() == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                pictureBox1.Image = new Bitmap(ofd.FileName);
+            }
         }
     }
 }

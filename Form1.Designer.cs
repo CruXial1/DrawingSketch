@@ -50,6 +50,8 @@
             this.AssignHeight = new System.Windows.Forms.TextBox();
             this.ImgWidth = new System.Windows.Forms.Label();
             this.ImgHeight = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openfile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -296,11 +298,28 @@
             this.ImgHeight.Cursor = System.Windows.Forms.Cursors.Default;
             this.ImgHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.ImgHeight.ForeColor = System.Drawing.Color.White;
-            this.ImgHeight.Location = new System.Drawing.Point(732, 263);
+            this.ImgHeight.Location = new System.Drawing.Point(731, 263);
             this.ImgHeight.Name = "ImgHeight";
             this.ImgHeight.Size = new System.Drawing.Size(53, 17);
             this.ImgHeight.TabIndex = 21;
             this.ImgHeight.Text = "Height:";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // openfile
+            // 
+            this.openfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.openfile.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.openfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.openfile.Location = new System.Drawing.Point(94, 497);
+            this.openfile.Name = "openfile";
+            this.openfile.Size = new System.Drawing.Size(75, 23);
+            this.openfile.TabIndex = 22;
+            this.openfile.Text = "Open Image";
+            this.openfile.UseVisualStyleBackColor = false;
+            this.openfile.Click += new System.EventHandler(this.openfile_Click);
             // 
             // Form1
             // 
@@ -308,6 +327,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(885, 528);
+            this.Controls.Add(this.openfile);
             this.Controls.Add(this.ImgHeight);
             this.Controls.Add(this.ImgWidth);
             this.Controls.Add(this.AssignHeight);
@@ -360,6 +380,8 @@
         private System.Windows.Forms.TextBox AssignHeight;
         private System.Windows.Forms.Label ImgWidth;
         private System.Windows.Forms.Label ImgHeight;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button openfile;
     }
 }
 
