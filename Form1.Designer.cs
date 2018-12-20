@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.SizePlus = new System.Windows.Forms.Button();
             this.SizeMinus = new System.Windows.Forms.Button();
@@ -52,7 +53,12 @@
             this.ImgHeight = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openfile = new System.Windows.Forms.Button();
+            this.paintbucket = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timec = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // SizePlus
@@ -90,6 +96,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(92, 20);
             this.textBox1.TabIndex = 3;
+            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
             // 
             // changecolor
             // 
@@ -321,12 +328,52 @@
             this.openfile.UseVisualStyleBackColor = false;
             this.openfile.Click += new System.EventHandler(this.openfile_Click);
             // 
+            // paintbucket
+            // 
+            this.paintbucket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.paintbucket.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.paintbucket.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.paintbucket.Location = new System.Drawing.Point(696, 497);
+            this.paintbucket.Name = "paintbucket";
+            this.paintbucket.Size = new System.Drawing.Size(99, 23);
+            this.paintbucket.TabIndex = 23;
+            this.paintbucket.Text = "Background color";
+            this.paintbucket.UseVisualStyleBackColor = false;
+            this.paintbucket.Click += new System.EventHandler(this.paintbucket_Click);
+            this.paintbucket.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paintbucket_MouseDown);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.numericUpDown1.Location = new System.Drawing.Point(785, 158);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(91, 20);
+            this.numericUpDown1.TabIndex = 24;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // timec
+            // 
+            this.timec.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.timec.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.timec.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.timec.Location = new System.Drawing.Point(591, 497);
+            this.timec.Name = "timec";
+            this.timec.Size = new System.Drawing.Size(99, 23);
+            this.timec.TabIndex = 25;
+            this.timec.Text = "Timed Challenge";
+            this.timec.UseVisualStyleBackColor = false;
+            this.timec.Click += new System.EventHandler(this.timec_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(885, 528);
+            this.Controls.Add(this.timec);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.paintbucket);
             this.Controls.Add(this.openfile);
             this.Controls.Add(this.ImgHeight);
             this.Controls.Add(this.ImgWidth);
@@ -353,6 +400,7 @@
             this.Text = "Crux Paint";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -382,6 +430,10 @@
         private System.Windows.Forms.Label ImgHeight;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button openfile;
+        private System.Windows.Forms.Button paintbucket;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        public System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button timec;
     }
 }
 

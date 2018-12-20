@@ -8,3 +8,4 @@ C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\bin\Debug\Crux Paint.pd
 C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\CruxPaint.Properties.Resources.resources
 C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\Crux Paint.exe
 C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\Crux Paint.pdb
+C:\Users\bv2803\source\repos\DrawingSketch\DrawingSketch\obj\Debug\CruxPaint.Form2.resources
